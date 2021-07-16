@@ -323,6 +323,13 @@ namespace CSScriptLibrary
                     do
                     {
                         asmName = asmEnum.GetNextAssembly();
+                        
+                        if (asmName != null 
+						    && (Environment.Is64BitProcess && asmName.Contains("processorArchitecture=x86"))
+							|| (!Environment.Is64BitProcess && asmName.Contains("processorArchitecture=x64")))
+						    continue;
+                                         
+                        
                         if (string.Compare(asmName, highestVersion) > 0)
                             highestVersion = asmName;
 
