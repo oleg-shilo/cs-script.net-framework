@@ -3,7 +3,11 @@
 
 ---
 
-Latest .NET 5 release: https://github.com/oleg-shilo/cs-script.core/releases/tag/v2.0.0.0
+This repository is a resting place for the obsolete codebase targeting .NET Framework. The releases after May 30, 2020 target .NET Core/5.
+
+All main stream releases are available from https://github.com/oleg-shilo/cs-script/releases
+
+This repository is only intended for hosting the historical codebase and potential branched/parallel releases for .NET Framework even though the chances for such releases are very small. 
 
 ---
  
