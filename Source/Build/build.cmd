@@ -4,11 +4,11 @@ echo off
 @set PATH=%windir%\Microsoft.NET\Framework\v1.1.4322;%PATH%;
 @set net4_tools=C:\Windows\Microsoft.NET\Framework\v4.0.30319
 @set vs_edition=Community
-rem @set vs_edition=Professional
+@set vs_edition=Professional
 
 @set net45_tools=C:\Program Files (x86)\Microsoft Visual Studio\2019\%vs_edition%\MSBuild\Current\Bin
 
-@set net4_asms=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6
+@set net4_asms=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8
 
 ECHO off
 ECHO Preparing to build...
@@ -36,42 +36,44 @@ REM ECHO Building...
 
 cd ..\CSScriptLibrary
 
-ECHO Building CSScript TargetFramework: v4.5:
+ECHO Building CSScript TargetFramework: v4.8:
 ECHO Building cscs.exe: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=cscs /p:TargetFrameworkVersion=v4.5  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=cscs /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
+echo "%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=cscs /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params% 
 ECHO ------------ >> ..\Build\build.log
+rem goto exit
 move ..\cscscript\bin\Distro\cscs.exe ..\Build\cscs.exe
 ..\Build\cscs.exe -? > "%local_dev%\help.txt"
 ..\Build\cscs.exe -? > ..\..\..\cs-script\help.txt
 ECHO Building cscs32.exe: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=cscs /p:TargetFrameworkVersion=v4.5  /p:PlatformTarget=x86 /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=cscs /p:TargetFrameworkVersion=v4.8  /p:PlatformTarget=x86 /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
 move ..\cscscript\bin\Distro\cscs.exe ..\Build\cscs32.exe
 ECHO ------------ >> ..\Build\build.log
 
 ECHO Building csws.exe: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\cswscript\cswscript.csproj /p:AssemblyName=csws /p:TargetFrameworkVersion=v4.5  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\cswscript\cswscript.csproj /p:AssemblyName=csws /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
 move ..\cswscript\bin\Distro\csws.exe ..\Build\csws.exe
 ECHO ------------ >> ..\Build\build.log
 
 ECHO Building csws32.exe: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=csws /p:TargetFrameworkVersion=v4.5  /p:PlatformTarget=x86 /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\cscscript\cscscript.csproj /p:AssemblyName=csws /p:TargetFrameworkVersion=v4.8  /p:PlatformTarget=x86 /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45" %common_msbuild_params%
 move ..\cscscript\bin\Distro\csws.exe ..\Build\csws32.exe
 ECHO ------------ >> ..\Build\build.log
 
 ECHO Building CSScriptLibrary.dll (unsigned): >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\CSScriptLibrary\CSScriptLibrary.csproj /p:AssemblyName=CSScriptLibrary /p:TargetFrameworkVersion=v4.5  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45;InterfaceAssembly;CSSLib_BuildUnsigned" %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\CSScriptLibrary\CSScriptLibrary.csproj /p:AssemblyName=CSScriptLibrary /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45;InterfaceAssembly;CSSLib_BuildUnsigned" %common_msbuild_params%
 ECHO ------------ >> ..\Build\build.log
 move ..\CSScriptLibrary\bin\Distro\CSScriptLibrary.dll ..\Build\CSScriptLibrary.dll.unsigned
 
 ECHO Building CSScriptLibrary.dll: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\CSScriptLibrary\CSScriptLibrary.csproj /p:AssemblyName=CSScriptLibrary /p:TargetFrameworkVersion=v4.5  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45;InterfaceAssembly" /t:Rebuild  %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\CSScriptLibrary\CSScriptLibrary.csproj /p:AssemblyName=CSScriptLibrary /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro /p:DefineConstants="net4;net45;InterfaceAssembly" /t:Rebuild  %common_msbuild_params%
 ECHO ------------ >> ..\Build\build.log
 move ..\CSScriptLibrary\bin\Distro\CSScriptLibrary.dll ..\Build\CSScriptLibrary.dll
 move ..\CSScriptLibrary\bin\Distro\CSScriptLibrary.xml ..\Build\CSScriptLibrary.xml
 
 ECHO Building css_config:
 ECHO Building css_config: >> ..\Build\build.log
-"%net45_tools%\msbuild.exe" ..\css_config\css_config.csproj /p:TargetFrameworkVersion=v4.5  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro %common_msbuild_params%
+"%net45_tools%\msbuild.exe" ..\css_config\css_config.csproj /p:TargetFrameworkVersion=v4.8  /p:configuration=Release;Platform="AnyCPU" /p:OutDir=bin\Distro %common_msbuild_params%
 move ..\css_config\bin\Distro\css_config.exe ..\Build\css_config.exe
 ECHO ------------ >> ..\Build\build.log
 
