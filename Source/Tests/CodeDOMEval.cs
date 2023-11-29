@@ -2,6 +2,7 @@
 using CSScriptLibrary;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using Tests;
 using Xunit;
@@ -31,6 +32,32 @@ public class CodeDomEval
     public CodeDomEval()
     {
         CSScript.CacheEnabled = false;
+    }
+
+    [Fact(DisplayName = "Issue #318", Skip = "depends on the local environment")]
+    public void Issue_318()
+    {
+        // alternative compiler and engine (csc.exe)
+        var altCompiler = @"D:\dev\Galos\cs-script.net-framework\Source\Tests\bin\Debug\CSSRoslynProvider.dll";
+        var alteCscLocation = @"C:\ProgramData\cs-script\CSScriptNpp\1.7.24.0\Roslyn";
+
+        CSScript.GlobalSettings.UseAlternativeCompiler = altCompiler;
+        Environment.SetEnvironmentVariable("CSSCRIPT_ROSLYN", alteCscLocation);
+
+        // ------------------------------------------
+
+        var code = @"public class Script
+                     {
+                        public string Gritting => ""Hello!"";
+                     }";
+
+        // needed for unit testing only; in production code Nuget package CS-Script.RoslynProvider will do the trick
+        File.Copy(altCompiler, Assembly.GetExecutingAssembly().Location.GetDirectoryName() + @"\CSSRoslynProvider.dll");
+
+        dynamic script = CSScript.CodeDomEvaluator.LoadCode(code);
+
+        var data = script.Gritting;
+        Assert.Equal("Hello!", data);
     }
 
     [Fact]
