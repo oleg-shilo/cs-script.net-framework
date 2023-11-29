@@ -4,9 +4,9 @@ echo off
 @set PATH=%windir%\Microsoft.NET\Framework\v1.1.4322;%PATH%;
 @set net4_tools=C:\Windows\Microsoft.NET\Framework\v4.0.30319
 @set vs_edition=Community
-@set vs_edition=Professional
+rem @set vs_edition=Professional
 
-@set net45_tools=C:\Program Files (x86)\Microsoft Visual Studio\2019\%vs_edition%\MSBuild\Current\Bin
+@set net45_tools=C:\Program Files\Microsoft Visual Studio\2022\%vs_edition%\MSBuild\Current\Bin
 
 @set net4_asms=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8
 
