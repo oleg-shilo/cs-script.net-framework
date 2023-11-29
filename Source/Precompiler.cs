@@ -413,7 +413,7 @@ namespace csscript
                                         }
                                     }
 
-                                    string entryPointDefinition = "///CS-Script auto-class generation" + Environment.NewLine +
+                                    string entryPointDefinition = "static ///CS-Script auto-class generation" + Environment.NewLine +
                                                "#line " + (lineCount + 1) + " \"" + scriptFile + "\"";
 
                                     result.BodyInjectedLine = lineCount;
